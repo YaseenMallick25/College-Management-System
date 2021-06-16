@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Form, Button, Card, Alert } from "react-bootstrap"
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import { IconContext } from "react-icons";
+import { FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa';
 
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
@@ -8,15 +11,19 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const SignInPage = () => (
-    <div>
-        <h1>SignIn</h1>
-        <SignInForm />
-        <SignInGoogle />
-        <SignInFacebook />
-        <SignInTwitter />
-        <PasswordForgetLink />
-        <SignUpLink />
-    </div>
+    <>
+        <Card>
+            <Card.Body>
+                <h1 className="text-center mb-4">Sign In</h1>
+                <SignInForm />
+                <SignInGoogle />
+                <SignInFacebook />
+                <SignInTwitter />
+                <PasswordForgetLink />
+                <SignUpLink />
+            </Card.Body>
+        </Card>
+    </>
 );
 
 const INITIAL_STATE = {
@@ -25,15 +32,9 @@ const INITIAL_STATE = {
     error: null,
 };
 
-const ERROR_CODE_ACCOUNT_EXISTS =
-    'auth/account-exists-with-different-credential';
+const ERROR_CODE_ACCOUNT_EXISTS = 'auth/account-exists-with-different-credential';
 
-const ERROR_MSG_ACCOUNT_EXISTS = `
-  An account with an E-Mail address to
-  this social account already exists. Try to login from
-  this account instead and associate your social accounts on
-  your personal account page.
-`;
+const ERROR_MSG_ACCOUNT_EXISTS = 'An account with an E-Mail address to this social account already exists. Try to login from this account instead and associate your social accounts on your personal account page.';
 
 class SignInFormBase extends Component {
     constructor(props) {
@@ -68,27 +69,44 @@ class SignInFormBase extends Component {
         const isInvalid = password === '' || email === '';
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <button disabled={isInvalid} type="submit">
-                    Sign In
-                </button>
+            <>
+                <Card>
+                    <Card.Body>
 
-                {error && <p>{error.message}</p>}
-            </form>
+                        {error && <Alert variant="danger">{error.message}</Alert>}
+
+                        <Form onSubmit={this.onSubmit}>
+
+                            <Form.Label>Email</Form.Label>
+
+                            <input
+                                name="email"
+                                value={email}
+                                onChange={this.onChange}
+                                type="email"
+                                className="form-control mb-2"
+                                placeholder="Email Address"
+                            />
+
+                            <Form.Label>Password</Form.Label>
+                            <input
+                                name="password"
+                                value={password}
+                                onChange={this.onChange}
+                                type="password"
+                                className="form-control mb-2"
+                                placeholder="Password"
+                            />
+
+                            <Button disabled={isInvalid} className="w-100 mb-1 mt-3" type="submit">
+                                Log In
+                            </Button>
+
+                        </Form>
+
+                    </Card.Body>
+                </Card>
+            </>
         );
     }
 }
@@ -130,11 +148,30 @@ class SignInGoogleBase extends Component {
         const { error } = this.state;
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <button type="submit">Sign In with Google</button>
+
+            <Form className="d-flex align-items-center justify-content-center" onSubmit={this.onSubmit}>
+                {error && <Alert variant="danger">{error.message}</Alert>}
+                <Button
+                    variant="outline-primary"
+                    className="d-flex align-items-center justify-content-center w-70 mb-1 mt-2"
+                    type="submit"
+                >
+                    <IconContext.Provider value={{ color: "red", className: "react-icons", style: "" }}>
+
+                        <div>
+                            <FaGoogle className="mb-1" style={{ marginRight: 10 }} />
+                        </div>
+
+                    </IconContext.Provider>
+
+                    Sign In with Google
+
+                </Button >
 
                 {error && <p>{error.message}</p>}
-            </form>
+
+            </Form >
+
         );
     }
 }
@@ -176,11 +213,30 @@ class SignInFacebookBase extends Component {
         const { error } = this.state;
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <button type="submit">Sign In with Facebook</button>
+            <>
+                {error && <Alert variant="danger">{error.message}</Alert>}
+                <Form className="d-flex align-items-center justify-content-center" onSubmit={this.onSubmit}>
 
-                {error && <p>{error.message}</p>}
-            </form>
+                    <Button
+                        variant="outline-primary"
+                        className="d-flex align-items-center justify-content-center w-70 mb-1 mt-2"
+                        type="submit"
+                    >
+
+                        <IconContext.Provider value={{ color: "purple", className: "react-icons", style: "" }}>
+
+                            <div>
+                                <FaFacebook className="mb-1" style={{ marginRight: 10 }} />
+                            </div>
+
+                        </IconContext.Provider>
+
+                        Sign In with Facebook
+
+                    </Button >
+
+                </Form >
+            </>
         );
     }
 }
@@ -222,11 +278,29 @@ class SignInTwitterBase extends Component {
         const { error } = this.state;
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <button type="submit">Sign In with Twitter</button>
+            <>
+                {error && <Alert variant="danger">{error.message}</Alert>}
+                <Form className="d-flex align-items-center justify-content-center" onSubmit={this.onSubmit}>
+                    <Button
+                        variant="outline-primary"
+                        className="d-flex align-items-center justify-content-center w-70 mb-1 mt-2"
+                        type="submit"
+                    >
 
-                {error && <p>{error.message}</p>}
-            </form>
+                        <IconContext.Provider value={{ color: "blue", className: "react-icons", style: "" }}>
+
+                            <div>
+                                <FaTwitter className="mb-1" style={{ marginRight: 10 }} />
+                            </div>
+
+                        </IconContext.Provider>
+
+                        Sign In with Twitter
+
+                    </Button >
+
+                </Form >
+            </>
         );
     }
 }

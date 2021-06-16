@@ -5,6 +5,9 @@ import { AuthUserContext } from '../Session';
 import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+import { Navbar } from 'react-bootstrap';
+import logo from '../../logo.svg';
+
 
 const Navigation = () => (
     <AuthUserContext.Consumer>
@@ -20,46 +23,69 @@ const Navigation = () => (
 
 const NavigationAuth = ({ authUser }) => (
 
-    <Nav className="justify-content-end">
+    <Navbar>
+        <Navbar.Brand href={ROUTES.LANDING}>
 
-        <Nav.Item as="li">
-            <Nav.Link href={ROUTES.LANDING}>Landing</Nav.Link>
-        </Nav.Item>
+            <img
+                src={logo}
+                width="80"
+                height="80"
+                alt="logo"
+            />
 
-        <Nav.Item as="li">
-            <Nav.Link href={ROUTES.HOME}>Home</Nav.Link>
-        </Nav.Item>
+        </Navbar.Brand>
 
-        <Nav.Item as="li">
-            <Nav.Link href={ROUTES.ACCOUNT}>Account</Nav.Link>
-        </Nav.Item>
+        <Navbar.Toggle />
 
-        {!!authUser.roles[ROLES.ADMIN] && (
-            <Nav.Item as="li">
-                <Nav.Link href={ROUTES.ADMIN}>Admin</Nav.Link>
+        <Navbar.Collapse className="justify-content-end">
+
+            <Nav.Item>
+                <Nav.Link href={ROUTES.HOME}>Home</Nav.Link>
             </Nav.Item>
-        )}
 
-        <Nav.Item as="li">
-            <SignOutButton />
-        </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href={ROUTES.ACCOUNT}>Account</Nav.Link>
+            </Nav.Item>
 
-    </Nav>
+            {!!authUser.roles[ROLES.ADMIN] && (
+                <Nav.Item>
+                    <Nav.Link href={ROUTES.ADMIN}>Admin</Nav.Link>
+                </Nav.Item>
+            )}
+
+            <Nav.Item>
+                <SignOutButton />
+            </Nav.Item>
+
+        </Navbar.Collapse>
+
+    </Navbar>
 );
 
 const NavigationNonAuth = () => (
+    <Navbar>
+        <Navbar.Brand href={ROUTES.LANDING}>
 
-    <Nav className="justify-content-end">
+            <img
+                src={logo}
+                width="80"
+                height="80"
+                alt="logo"
+            />
 
-        <Nav.Item as="li">
-            <Nav.Link href={ROUTES.LANDING}>Landing</Nav.Link>
-        </Nav.Item>
+        </Navbar.Brand>
 
-        <Nav.Item as="li">
-            <Nav.Link href={ROUTES.SIGN_IN}>Sign In</Nav.Link>
-        </Nav.Item>
+        <Navbar.Toggle />
 
-    </Nav>
+        <Navbar.Collapse className="justify-content-end">
+
+            <Nav.Item>
+                <Nav.Link href={ROUTES.SIGN_IN}>Sign In</Nav.Link>
+            </Nav.Item>
+
+        </Navbar.Collapse>
+
+    </Navbar>
 );
 
 export default Navigation;

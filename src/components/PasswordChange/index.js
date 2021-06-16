@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Form, Button, Card, Alert } from "react-bootstrap"
 
 import { withFirebase } from '../Firebase';
 
@@ -41,27 +42,35 @@ class PasswordChangeForm extends Component {
             passwordOne !== passwordTwo || passwordOne === '';
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="passwordOne"
-                    value={passwordOne}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="New Password"
-                />
-                <input
-                    name="passwordTwo"
-                    value={passwordTwo}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm New Password"
-                />
-                <button disabled={isInvalid} type="submit">
-                    Reset My Password
-                </button>
+            <>
+                <Card>
+                    <Card.Body>
+                        {error && <Alert variant="danger">{error.message}</Alert>}
+                        <Form onSubmit={this.onSubmit}>
+                            <input
+                                name="passwordOne"
+                                value={passwordOne}
+                                onChange={this.onChange}
+                                type="password"
+                                className="form-control mb-2"
+                                placeholder="New Password"
+                            />
+                            <input
+                                name="passwordTwo"
+                                value={passwordTwo}
+                                onChange={this.onChange}
+                                type="password"
+                                className="form-control mb-2"
+                                placeholder="Confirm New Password"
+                            />
+                            <Button className="w-100" disabled={isInvalid} type="submit">
+                                Reset My Password
+                            </Button>
+                        </Form>
+                    </Card.Body>
 
-                {error && <p>{error.message}</p>}
-            </form>
+                </Card>
+            </>
         );
     }
 }

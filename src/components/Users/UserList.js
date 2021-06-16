@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Table from 'react-bootstrap/Table';
 
 import { withFirebase } from '../Firebase';
@@ -42,9 +42,9 @@ class UserList extends Component {
     const { users, loading } = this.state;
 
     return (
-      <div>
+      <div className="text-center mb-4">
 
-        <h2>Users</h2>
+        <h2 className="text-center mb-4">Users</h2>
 
         {loading && <div>Loading ...</div>}
 

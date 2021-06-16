@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Card } from "react-bootstrap"
 
 import { withFirebase } from '../Firebase';
 
@@ -43,33 +44,41 @@ class UserItem extends Component {
 
         return (
             <div>
-                <h2>User ({this.props.match.params.id})</h2>
-                {loading && <div>Loading ...</div>}
+                <Card>
+                    <h2 className="text-center mb-4">User : ({this.props.match.params.id})</h2>
+                    {loading && <div>Loading ...</div>}
 
-                {user && (
-                    <div>
-                        <span>
-                            <strong>ID:</strong> {user.uid}
-                        </span>
-                        <br></br>
-                        <span>
-                            <strong>E-Mail:</strong> {user.email}
-                        </span>
-                        <br></br>
-                        <span>
-                            <strong>Username:</strong> {user.username}
-                        </span>
-                        <span>
-                            <button
-                                type="button"
-                                onClick={this.onSendPasswordResetEmail}
-                            >
-                                Send Password Reset
-                            </button>
-                        </span>
-                    </div>
-                )
-                }
+                    {user && (
+                        <div>
+                            <Card className="text-center m-4" >
+                                <Card.Body>
+                                    <span>
+                                        <strong>ID:</strong> {user.uid}
+                                    </span>
+                                    <br></br>
+                                    <span>
+                                        <strong>E-Mail:</strong> {user.email}
+                                    </span>
+                                    <br></br>
+                                    <span>
+                                        <strong>Username:</strong> {user.username}
+                                    </span>
+                                    <span>
+                                        <Button
+                                            type="button"
+                                            variant="outline-primary"
+                                            onClick={this.onSendPasswordResetEmail}
+                                        >
+                                            Send Password Reset
+                                        </Button>
+                                    </span>
+                                </Card.Body>
+
+                            </Card>
+                        </div>
+                    )
+                    }
+                </Card>
             </div>
         );
     }

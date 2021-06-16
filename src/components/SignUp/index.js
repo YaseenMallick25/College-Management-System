@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Form, Button, Card, Alert } from "react-bootstrap"
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
@@ -7,10 +8,14 @@ import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 
 const SignUpPage = () => (
-    <div>
-        <h1>SignUp</h1>
-        <SignUpForm />
-    </div>
+    <>
+        <Card>
+            <Card.Body>
+                <h1 className="text-center mb-4">SignUp</h1>
+                <SignUpForm />
+            </Card.Body>
+        </Card>
+    </>
 );
 
 const INITIAL_STATE = {
@@ -99,51 +104,99 @@ class SignUpFormBase extends Component {
             username === '';
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="username"
-                    value={username}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Full Name"
-                />
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="passwordOne"
-                    value={passwordOne}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <input
-                    name="passwordTwo"
-                    value={passwordTwo}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm Password"
-                />
-                <label>
-                    Admin:
-                    <input
-                        name="isAdmin"
-                        type="checkbox"
-                        checked={isAdmin}
-                        onChange={this.onChangeCheckbox}
-                    />
-                </label>
-                <button disabled={isInvalid} type="submit">
-                    Sign Up
-                </button>
 
-                {error && <p>{error.message}</p>}
-            </form>
+            <>
+                <Card>
+                    <Card.Body>
+                        {error && <Alert variant="danger">{error.message}</Alert>}
+
+                        <Form onSubmit={this.onSubmit}>
+
+                            <Form.Label>Username</Form.Label>
+                            <input
+                                name="username"
+                                value={username}
+                                onChange={this.onChange}
+                                type="text"
+                                className="form-control mb-2"
+                                placeholder="Username"
+                            />
+
+                            <Form.Label>Email</Form.Label>
+                            <input
+                                name="email"
+                                value={email}
+                                onChange={this.onChange}
+                                type="email"
+                                className="form-control mb-2"
+                                placeholder="Email Address"
+                            />
+
+                            <Form.Label>Password</Form.Label>
+                            <input
+                                name="passwordOne"
+                                value={passwordOne}
+                                onChange={this.onChange}
+                                type="password"
+                                className="form-control mb-2"
+                                placeholder="Password"
+                            />
+
+                            <Form.Label>Password</Form.Label>
+                            <input
+                                name="passwordTwo"
+                                value={passwordTwo}
+                                onChange={this.onChange}
+                                type="password"
+                                className="form-control mb-2"
+                                placeholder="Confirm Password"
+                            />
+
+                            <>
+                                <div className="d-flex align-items-center justify-content-center">
+                                    <Form.Label> Admin :
+                                        <input
+                                            name="isAdmin"
+                                            type="checkbox"
+                                            className="mb-2" style={{ margin: 10 }}
+                                            checked={isAdmin}
+                                            onChange={this.onChangeCheckbox}
+                                        />
+                                    </Form.Label>
+
+                                    <Form.Label> Admin :
+                                        <input
+                                            name="isAdmin"
+                                            type="checkbox"
+                                            className="mb-2" style={{ margin: 10 }}
+                                            checked={isAdmin}
+                                            onChange={this.onChangeCheckbox}
+                                        />
+                                    </Form.Label>
+
+                                    <Form.Label> Admin :
+                                        <input
+                                            name="isAdmin"
+                                            type="checkbox"
+                                            className="mb-2" style={{ margin: 10 }}
+                                            checked={isAdmin}
+                                            onChange={this.onChangeCheckbox}
+                                        />
+                                    </Form.Label>
+
+                                </div>
+                            </>
+
+                            <Button className="w-100" disabled={!isInvalid} type="submit">
+                                Sign Up
+                            </Button>
+
+                        </Form>
+                    </Card.Body>
+                </Card>
+            </>
         );
+
     }
 }
 
